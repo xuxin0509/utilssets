@@ -99,7 +99,7 @@ filetype plugin indent on
 " 将指定文件类型，空格自动转换为tab，手动使用以下命令
 " :set expandtab
 " :retab     ** command mode
-autocmd FileType h,c,cpp,cxx,cc,java,sh setlocal expandtab
+autocmd FileType h,c,cpp,cxx,cc,java,sh,py,kt setlocal expandtab
 autocmd BufNewFile,BufRead *.py let g:indentLine_enabled=1 " for indentLine
 
 " filetype plugin on, then turns on omni completion
