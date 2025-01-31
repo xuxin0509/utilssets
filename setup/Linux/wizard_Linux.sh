@@ -74,23 +74,23 @@ func_sys_env() {
         return
     fi
 
-# must be the last step in func_sysenv
-if [ ! -d $HOME_PATH/.fonts ]; then
-    mkdir -p $HOME/.fonts
-    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSans-hinted.zip -O $HOME/.fonts/NotoSans-hinted.zip
-    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSerif-hinted.zip -O $HOME/.fonts/NotoSerif-hinted.zip
-    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKsc-hinted.zip -O $HOME/.fonts/NotoSansCJKsc-hinted.zip
-    wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifCJKsc-hinted.zip -O $HOME/.fonts/NotoSerifCJKsc-hinted.zip
+    # must be the last step in func_sysenv
+    if [ ! -d $HOME_PATH/.fonts ]; then
+        mkdir -p $HOME/.fonts
+        wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSans-hinted.zip -O $HOME/.fonts/NotoSans-hinted.zip
+        wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSerif-hinted.zip -O $HOME/.fonts/NotoSerif-hinted.zip
+        wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKsc-hinted.zip -O $HOME/.fonts/NotoSansCJKsc-hinted.zip
+        wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSerifCJKsc-hinted.zip -O $HOME/.fonts/NotoSerifCJKsc-hinted.zip
 
-    pushd $HOME/.fonts
-    unzip NotoSans-hinted.zip -d NotoSans-hinted
-    unzip NotoSerif-hinted.zip -d NotoSerif-hinted
-    unzip NotoSansCJKsc-hinted.zip -d NotoSansCJKsc-hinted
-    unzip NotoSerifCJKsc-hinted.zip -d NotoSerifCJKsc-hinted
-    popd
+        pushd $HOME/.fonts
+        unzip NotoSans-hinted.zip -d NotoSans-hinted
+        unzip NotoSerif-hinted.zip -d NotoSerif-hinted
+        unzip NotoSansCJKsc-hinted.zip -d NotoSansCJKsc-hinted
+        unzip NotoSerifCJKsc-hinted.zip -d NotoSerifCJKsc-hinted
+        popd
 
-    fc-cache
-fi
+        fc-cache
+    fi
 }
 
 func_android_env() {

@@ -12,5 +12,9 @@ fi
 CUR_DIR=$(cd `dirname $BASH_SOURCE` && /bin/pwd)
 
 source ${CUR_DIR}/env/env.sh
+# os related
 source ${CUR_DIR}/${OS_TYPE}/wizard_${OS_TYPE}.sh
+
+# non-os releated
 source ${CUR_DIR}/setup_vim.sh
+source ${CUR_DIR}/update_fzf.sh
