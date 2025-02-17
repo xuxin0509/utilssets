@@ -32,7 +32,7 @@ function env_variable()
 function reach_github()
 {
   local url="https://github.com"
-  local code=`curl -I -s ${url} -w %{http_code} | tail -n1`
+  local code=`curl --connect-timeout 10 -I -s ${url} -w %{http_code} | tail -n1`
   if [ "x${code}" == "x200" ]; then
     NETWORK=1
     reach_network=1
@@ -40,8 +40,8 @@ function reach_github()
     NETWORK=0
     reach_network=0
   fi
-  echo "connecting to github.com, status: $reach_network, http_code: $code"
-  echo "NETWORK: ${reach_network}"
+  printf_msg "connecting to github.com, status: $reach_network, http_code: $code\n"
+  printf_msg "NETWORK: ${reach_network}\n"
 }
 
 function setup_bash_env()
