@@ -1,10 +1,27 @@
 #!/bin/bash
 
+function printf_msg()
+{
+    if [ $# -ne 1 ]; then
+        msg="message parameter error"
+    fi
+
+    msg="$1"
+    printf "\e[31m%b%s\e[0m" "${msg}"
+}
+
 # SUDO
 function sudo_variable()
 {
+
     if [ ${UID} -ne 0 ]; then
-        SUDO=sudo
+        sudo_found=$(groups | grep -ic sudo)
+        if [ ${sudo_found} -eq 0 ]; then
+            printf_msg "user doesn't in sudo group, can't run as privilege!\n"
+            SUDO="printf_msg \"can't run as privilege, skip!\n\" ; false &&"
+        else
+            SUDO=sudo
+        fi
     fi
 }
 
@@ -78,7 +95,7 @@ function os_variable()
 func_installing_status()
 {
     if [ $# -eq 0 ]; then
-        echo -e "\nerror: requires package name to install it, exit..\n"
+        printf_msg "\nerror: requires package name to install it, exit..\n"
         exit 1
     fi
 
@@ -91,10 +108,10 @@ func_installing_status()
             continue
         fi
 
-        $SUDO ${PKG_MANAGER} ${PKG_INSTALL} ${cml}
+        eval $SUDO ${PKG_MANAGER} ${PKG_INSTALL} ${cml}
         if [ $? -ne 0 ]; then
-            echo -e "\nerror, failed to install: ${cml}, exit...\n"
-            exit 1
+            printf_msg "\nerror, failed to install: ${cml}, exit...\n"
+            continue
         fi
     done
 }
